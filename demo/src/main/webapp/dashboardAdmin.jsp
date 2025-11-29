@@ -12,7 +12,7 @@
         <h3>Menú</h3>
         <ul>
             <li><a href="#">Gestionar Cursos (Pendiente)</a></li>
-            <li><a href="#">Gestionar Usuarios (Pendiente)</a></li>
+            <li><a href="usuarios">Gestionar Usuarios</a></li>
             <li><a href="logout" style="color: red;">Cerrar Sesión</a></li>
         </ul>
     </nav>

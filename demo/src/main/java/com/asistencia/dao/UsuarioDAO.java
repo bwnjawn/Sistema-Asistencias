@@ -4,68 +4,131 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.asistencia.model.Usuario;
 import com.asistencia.util.ConexionDB;
 
 public class UsuarioDAO {
 
-    /**
-     * Valida las credenciales de un usuario.
-     * @param email El correo electrónico del usuario.
-     * @param password La contraseña (en texto plano por ahora, idealmente debería ser hash).
-     * @return Objeto Usuario si las credenciales son correctas, null si no lo son.
-     */
-    @SuppressWarnings("CallToPrintStackTrace")
+    private Connection getConnection() throws SQLException {
+        return ConexionDB.getInstance().getConnection();
+    }
+
+    // 1. VALIDAR LOGIN (Ya existía)
     public Usuario validarLogin(String email, String password) {
         Usuario usuario = null;
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        // La consulta busca por email y password_hash (asumiendo que guardamos la pass tal cual para probar)
         String sql = "SELECT * FROM usuario WHERE email = ? AND password_hash = ?";
-
-        try {
-            // 1. Obtener la conexión usando nuestro Singleton
-            conn = ConexionDB.getInstance().getConnection();
-
-            // 2. Preparar la consulta (PreparedStatement evita inyección SQL)
-            stmt = conn.prepareStatement(sql);
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, email);
             stmt.setString(2, password);
-
-            // 3. Ejecutar la consulta
-            rs = stmt.executeQuery();
-
-            // 4. Procesar el resultado
-            if (rs.next()) {
-                // Si entra aquí, es que encontró al usuario
-                usuario = new Usuario();
-                
-                // Mapeamos las columnas de la BD (snake_case) a los atributos de la clase (camelCase)
-                usuario.setIdUsuario(rs.getInt("id_usuario"));
-                usuario.setRut(rs.getString("rut"));
-                usuario.setNombre(rs.getString("nombre"));
-                usuario.setApellido(rs.getString("apellido"));
-                usuario.setEmail(rs.getString("email"));
-                usuario.setPassword(rs.getString("password_hash"));
-                usuario.setIdRol(rs.getInt("id_rol"));
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    usuario = mapUsuario(rs);
+                }
             }
-
         } catch (SQLException e) {
-            System.err.println("Error al validar login: " + e.getMessage());
             e.printStackTrace();
-        } finally {
-            // 5. Cerrar recursos (ResultSet y Statement, pero NO la conexión del Singleton)
-            try {
-                if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
-
         return usuario;
+    }
+
+    // 2. LISTAR TODOS LOS USUARIOS
+    public List<Usuario> listAll() {
+        List<Usuario> usuarios = new ArrayList<>();
+        String sql = "SELECT * FROM usuario ORDER BY apellido, nombre";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                usuarios.add(mapUsuario(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuarios;
+    }
+
+    // 3. INSERTAR USUARIO
+    public boolean insert(Usuario u) {
+        String sql = "INSERT INTO usuario (rut, nombre, apellido, email, password_hash, id_rol) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, u.getRut());
+            stmt.setString(2, u.getNombre());
+            stmt.setString(3, u.getApellido());
+            stmt.setString(4, u.getEmail());
+            stmt.setString(5, u.getPassword()); // En producción, esto debería ir hasheado
+            stmt.setInt(6, u.getIdRol());
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // 4. ACTUALIZAR USUARIO
+    public boolean update(Usuario u) {
+        String sql = "UPDATE usuario SET rut=?, nombre=?, apellido=?, email=?, password_hash=?, id_rol=? WHERE id_usuario=?";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, u.getRut());
+            stmt.setString(2, u.getNombre());
+            stmt.setString(3, u.getApellido());
+            stmt.setString(4, u.getEmail());
+            stmt.setString(5, u.getPassword());
+            stmt.setInt(6, u.getIdRol());
+            stmt.setInt(7, u.getIdUsuario());
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // 5. ELIMINAR USUARIO
+    public boolean delete(int id) {
+        String sql = "DELETE FROM usuario WHERE id_usuario=?";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // 6. OBTENER POR ID
+    public Usuario getById(int id) {
+        Usuario u = null;
+        String sql = "SELECT * FROM usuario WHERE id_usuario=?";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    u = mapUsuario(rs);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return u;
+    }
+
+    // Helper para mapear ResultSet a Objeto
+    private Usuario mapUsuario(ResultSet rs) throws SQLException {
+        Usuario u = new Usuario();
+        u.setIdUsuario(rs.getInt("id_usuario"));
+        u.setRut(rs.getString("rut"));
+        u.setNombre(rs.getString("nombre"));
+        u.setApellido(rs.getString("apellido"));
+        u.setEmail(rs.getString("email"));
+        u.setPassword(rs.getString("password_hash"));
+        u.setIdRol(rs.getInt("id_rol"));
+        return u;
     }
 }
