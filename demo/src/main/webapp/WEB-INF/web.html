@@ -13,16 +13,50 @@
 </head>
 <body>
     <header>
-        <h2 class="logo">Logo Universidad</h2>
+        <div class="logo-header"></div>
         <nav class="navegacion">
             <a href="#">Home</a>
             <a href="#">Clases</a>
             <a href="#">Horario</a>
             <a href="#">Asistencia</a>
-            <button class="btnLogin-popup">Iniciar Sesion</button>
+            <button class="btnLogin-popup">Ingresar</button>
         </nav>
     </header>
 
-    <main>
-        
-    </main>
+    <div class="wrapper">
+        <div class="form-box login">
+            <h2>Login</h2>
+            <form action="#">
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail-sharp"></ion-icon></span>
+                    <input type="email" required>
+                    <label>Email</label>
+                </div>
+                
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed-sharp"></ion-icon></span>
+                    <input type="password" required>
+                    <label>Password</label>
+                </div>
+
+                <div class="recordar-olvidar">
+                    <label><input type="checkbox">Recuerdame</label>
+                    <a href="#">¿Has olvidado tu contraseña?</a>
+                </div>
+                <button type="submit" class="btn">Iniciar sesión</button>
+
+                <div class="iniciar-registrar">
+                    <p>¿No tienes una cuenta? <a href="#">Registrate</a></p>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+    <script> scr="script.js"</script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
