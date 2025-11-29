@@ -13,10 +13,11 @@ import com.asistencia.util.ConexionDB;
 public class CursoDAO {
 
     private Connection getConnection() throws SQLException {
+        // Usa la instancia Singleton de tu conexión
         return ConexionDB.getInstance().getConnection();
     }
 
-    // 1. LISTAR TODOS
+    // 1. LISTAR TODOS (Para el Admin)
     public List<Curso> listAll() {
         List<Curso> cursos = new ArrayList<>();
         String sql = "SELECT id_curso, codigo, nombre, id_profesor FROM cursos ORDER BY nombre"; 
@@ -31,9 +32,12 @@ public class CursoDAO {
                 curso.setCodigo(rs.getString("codigo"));
                 curso.setNombre(rs.getString("nombre"));
                 curso.setIdProfesor(rs.getInt("id_profesor"));
+                
                 cursos.add(curso);
             }
+            
         } catch (SQLException e) {
+            System.err.println("Error al listar cursos: " + e.getMessage());
             e.printStackTrace();
         }
         return cursos;
@@ -88,7 +92,7 @@ public class CursoDAO {
         }
     }
 
-    // 5. OBTENER UN CURSO POR ID (Para editar)
+    // 5. OBTENER UN CURSO POR ID (Para editar o tomar asistencia)
     public Curso getById(int id) {
         String sql = "SELECT * FROM cursos WHERE id_curso = ?";
         Curso curso = null;
@@ -109,5 +113,30 @@ public class CursoDAO {
             e.printStackTrace();
         }
         return curso;
+    }
+
+    // 6. LISTAR POR PROFESOR (NUEVO - Para el Dashboard Docente)
+    public List<Curso> listByProfesor(int idProfesor) {
+        List<Curso> cursos = new ArrayList<>();
+        String sql = "SELECT * FROM cursos WHERE id_profesor = ? ORDER BY nombre"; 
+        
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, idProfesor);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                Curso curso = new Curso();
+                curso.setIdCurso(rs.getInt("id_curso"));
+                curso.setCodigo(rs.getString("codigo"));
+                curso.setNombre(rs.getString("nombre"));
+                curso.setIdProfesor(rs.getInt("id_profesor"));
+                cursos.add(curso);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cursos;
     }
 }

@@ -7,7 +7,7 @@
     <h1>Alumno: ${sessionScope.usuario.nombre} ${sessionScope.usuario.apellido}</h1>
     <hr>
     <ul>
-        <li><a href="#">Ver Mis Asistencias</a></li>
+        <li><a href="asistencia?action=verHistorial">Ver Mis Asistencias</a></li>
         <li><a href="logout" style="color: red;">Cerrar Sesión</a></li>
     </ul>
 </body>
