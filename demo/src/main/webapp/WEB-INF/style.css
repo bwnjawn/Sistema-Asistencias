@@ -87,7 +87,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url('../Img/placeholder.png') no-repeat; 
+    background: url('../Img/mainpagefondo.png') no-repeat; 
     background-size: cover;
     background-position: center;
 }
@@ -103,6 +103,49 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    /*overflow: hidden;*/
+    transition: height .2s ease;
+}
+
+.wrapper.active {
+    height: 520px;
+}
+
+.wrapper .form-box.login{
+    transition: transform .18s ease;
+    transform: translateX(0);
+}
+
+.wrapper.active .form-box.login{
+    transition: none;
+    transform: translateX(-400px);
+}
+
+.wrapper .form-box.registrar{
+    position: absolute;
+    transition: none;
+    transform: translateX(400px);
+}
+.wrapper.active .form-box.registrar{
+    transition: transform .18s ease;
+    transform: translateX(0px);
+}
+
+.wrapper .icon-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 45px;
+    height: 45px;
+    background: #162938;
+    font-size: 2em;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 20px;
+    cursor: pointer;
+    z-index: 1;
 }
 
 .wrapper .form-box {
@@ -110,8 +153,16 @@ body {
     padding: 40px;
 }
 
+
+
 .form-box {
     font-size: 1.5em;
+    color: #162938;
+    text-align: center;
+}
+
+.form-box h2{
+    font-size: 2em;
     color: #162938;
     text-align: center;
 }
@@ -133,6 +184,7 @@ body {
     color: #162938;
     font-weight: 500;
     pointer-events: none;
+    transition: .5s;
 }
 
 .input-box input:focus~label,
@@ -146,6 +198,10 @@ body {
     background: transparent;
     border: none;
     outline: none;
+    font-size: 1em;
+    color: #162938;
+    font-weight: 600;
+    padding: 0 35px 0 5px;
 }
 
 .input-box .icon {
@@ -155,3 +211,58 @@ body {
     color: #162938;
     line-height: 57px;
 }
+
+.recordar-olvidar {
+    font-size: .6em;
+    color: #162938;
+    font-weight: 500;
+    margin: -15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.recordar-olvidar label input {
+    accent-color: #162916;
+    margin-right: 3px;
+}
+
+.recordar-olvidar a {
+    color: #162916;
+    text-decoration: none;
+}
+
+.recordar-olvidar a:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    width: 100%;
+    height: 45px;
+    background: #162938;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #fff;
+    font-weight: 400;
+}
+
+.iniciar-registrar {
+    font-size: .8em;
+    color: #162938;
+    text-align: center;
+    font-weight: 500;
+    margin: 25px 0 10px;
+}
+
+.iniciar-registrar p a {
+    color: #162938;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.iniciar-registrar p a:hover{
+    text-decoration: underline;
+}
+

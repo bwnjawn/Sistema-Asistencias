@@ -24,6 +24,9 @@
     </header>
 
     <div class="wrapper">
+        <span class="icon-close"><ion-icon name="close-circle-sharp"></ion-icon></span>
+
+        <!-- El login -->>
         <div class="form-box login">
             <h2>Login</h2>
             <form action="#">
@@ -36,7 +39,7 @@
                 <div class="input-box">
                     <span class="icon"><ion-icon name="lock-closed-sharp"></ion-icon></span>
                     <input type="password" required>
-                    <label>Password</label>
+                    <label>Contraseña</label>
                 </div>
 
                 <div class="recordar-olvidar">
@@ -46,15 +49,50 @@
                 <button type="submit" class="btn">Iniciar sesión</button>
 
                 <div class="iniciar-registrar">
-                    <p>¿No tienes una cuenta? <a href="#">Registrate</a></p>
+                    <p>¿No tienes una cuenta? <a href="#" class="registrar-link">Registrate</a></p>
                 </div>
 
             </form>
         </div>
+
+        <!-- Registrar -->>
+        <div class="form-box registrar">
+            <h2>Registrarse</h2>
+            <form action="#">
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="person-sharp"></ion-icon></span>
+                    <input type="text" required>
+                    <label>Usuario</label>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail-sharp"></ion-icon></span>
+                    <input type="email" required>
+                    <label>Email</label>
+                </div>
+                
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed-sharp"></ion-icon></span>
+                    <input type="password" required>
+                    <label>Contraseña</label>
+                </div>
+
+                <div class="recordar-olvidar">
+                    <label><input type="checkbox">werwerwtw</label>
+                </div>
+                <button type="submit" class="btn">Registrarse</button>
+
+                <div class="iniciar-registrar">
+                    <p>¿Ya tienes una cuenta? <a href="#" class="login-link">Inicia sesión</a></p>
+                </div>
+
+            </form>
+        </div>
+
     </div>
 
 
-    <script> scr="script.js"</script>
+    <script src="script.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
