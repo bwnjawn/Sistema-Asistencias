@@ -15,14 +15,22 @@
     font-family: var(Raleway);
 }
 
+.paleta {
+    --color-letras: rgb(0, 0, 0);
+    --color-primario: rgb(86, 130, 177);
+    --color-secundario: rgb(115, 158, 201);
+    --color-header: rgb(255, 232, 219);
+    --color-blanco: #fff;
+}
+
 /* Header */
 header{
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px, 100px;
-    background: grey;
+    padding: 10px 40px;
+    background: var(--color-secundario);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -30,15 +38,18 @@ header{
 }
 
 .logo-header {
-    background-image: url("../Img/Logo.png");
-
-    
+    width: 200px;
+    height: 60px;
+    background-image: url('../Img/Logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left center;
 }
 
 .navegacion a {
     position: relative;
     font-size: 1.1em;
-    color: #fff;
+    color: var(--color-letras);
     text-decoration: none;
     font-weight: 500;
     margin-left: 40px;
@@ -51,7 +62,7 @@ header{
     bottom: -6px;
     width: 100%;
     height: 3px;
-    background: #fff;
+    background: var(--color-primario);
     border-radius: 5px;
     transform: scaleX(0);
     transition: transform .5s;
@@ -65,20 +76,20 @@ header{
     width: 130px;
     height: 40px;
     background: transparent;
-    border: 2px solid #fff;
+    border: 2px solid --color-primario;
     outline: none;
     border-radius: 6px;
     cursor: pointer;
     font-size: 1.1em;
-    color: #fff;
+    color: var(--color-letras);
     font-weight: 500;
     margin-left: 40px;
     transition: .5s;
 }
 
 .navegacion .btnLogin-popup:hover{
-    background: #fff;
-    color: #162938;
+    background: var(--color-primario);
+    color: var(--color-letras);
 }
 
 /* body */
