@@ -1,0 +1,15 @@
+com\asistencia\controller\UsuarioServlet.class
+com\asistencia\filter\AuthFilter.class
+com\asistencia\dao\CursoDAO.class
+com\asistencia\model\Asistencia.class
+com\asistencia\controller\AuthServlet.class
+com\asistencia\controller\CursoServlet.class
+com\asistencia\dao\AsistenciaDAO.class
+com\asistencia\dao\UsuarioDAO.class
+com\asistencia\dao\AlumnoDAO.class
+com\asistencia\model\Alumno.class
+com\asistencia\controller\AsistenciaServlet.class
+com\asistencia\controller\LogoutServlet.class
+com\asistencia\model\Usuario.class
+com\asistencia\util\ConexionDB.class
+com\asistencia\model\Curso.class
