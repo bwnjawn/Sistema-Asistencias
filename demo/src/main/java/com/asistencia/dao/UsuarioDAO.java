@@ -1,11 +1,12 @@
 package com.asistencia.dao;
 
-import com.asistencia.model.Usuario;
-import com.asistencia.util.ConexionDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.asistencia.model.Usuario;
+import com.asistencia.util.ConexionDB;
 
 public class UsuarioDAO {
 
@@ -15,6 +16,7 @@ public class UsuarioDAO {
      * @param password La contraseña (en texto plano por ahora, idealmente debería ser hash).
      * @return Objeto Usuario si las credenciales son correctas, null si no lo son.
      */
+    @SuppressWarnings("CallToPrintStackTrace")
     public Usuario validarLogin(String email, String password) {
         Usuario usuario = null;
         Connection conn = null;
