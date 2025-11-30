@@ -14,13 +14,15 @@ public class ConexionDB {
     // --- CREDENCIALES DE SUPABASE ---
     
     // 1. URL JDBC con tu Host Real de Supabase
-    private static final String JDBC_URL = "jdbc:postgresql://db.bwfnosoulhjketfappxx.supabase.co:5432/postgres";
-    
-    // 2. Usuario por defecto
-    private static final String USER = "postgres"; 
-    
-    // 3. CONTRASEÑA: ¡Reemplaza el texto de abajo con la clave que creaste!
-    private static final String PASSWORD = "cortemagnate123!"; 
+    private static final String URL = "jdbc:postgresql://aws-1-us-east-1.pooler.supabase.com:5432/postgres?sslmode=require";
+
+    // 2. USUARIO:
+    //    - Debe ser el nombre completo del usuario del pooler (según tu imagen).
+    private static final String USER = "postgres.bwfnosoulhjketfappxx"; 
+
+    // 3. CONTRASEÑA:
+    //    - La contraseña que definiste al crear el proyecto.
+    private static final String PASS = "cortemagnate123!";
 
     // Instancia única de la clase (Singleton)
     private static ConexionDB instance;
